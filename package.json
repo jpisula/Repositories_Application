@@ -1,0 +1,32 @@
+{
+  "name": "repositories_application",
+  "version": "1.0.0",
+  "description": "Application which gives repositories of chosen github user",
+  "main": "index.js",
+  "scripts": {
+    "test": "we are live!",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "lite": "lite-server",
+    "start": "concurrently \"npm run tsc:w\" \"npm run lite\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpisula/Repositories_Application.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jpisula/Repositories_Application/issues"
+  },
+  "homepage": "https://github.com/jpisula/Repositories_Application#readme",
+  "dependencies": {
+    "live-server": "^1.2.1",
+    "sass": "^1.27.0"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "lite-server": "^2.5.4",
+    "typescript": "^4.0.3"
+  }
+}
