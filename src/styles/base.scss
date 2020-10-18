@@ -1,7 +1,8 @@
 body {
     margin:0;
     font-family: 'Montserrat', sans-serif;
-    // background-color: black;
+    scroll-behavior: smooth;
+    background-color: #374c5f;
 }
 
 .container {
@@ -67,5 +68,15 @@ body {
 
 .user-repos-result:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  }
+}
+  
+
+.section-divider{
+    margin-top: 2%;
+    border: 0;
+    height: 5px;
+    background-image: linear-gradient(to right, rgba(59,52,43, 0), rgba(59,52,43, 1), rgba(59,52,43, 0));
+}
+
+
 

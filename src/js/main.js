@@ -14,8 +14,8 @@ class ReposApplication {
          */
         this.init = () => {
             this.connectDOMElements();
-            this.setupListeners();
             this.changeReposTag();
+            this.setupListeners();
         };
         this.connectDOMElements = () => {
             const listOfIds = [...document.querySelectorAll('[id]')].map((elem) => elem.id);
@@ -23,12 +23,19 @@ class ReposApplication {
         };
         this.setupListeners = () => {
             this.viewElements.get('searchForRepo')?.addEventListener('click', this.onReposSearchBtnClick);
+            this.observer.observe(document.body, { attributes: true, childList: true, subtree: true });
         };
         this.onReposSearchBtnClick = (event) => {
             event.preventDefault();
             const userName = this.viewElements.get('userName').value;
             const dataString = this.viewElements.get('updatedBy').value;
             const searchRepoSection = this.viewElements.get('searchRepo');
+            console.log();
+            if (searchRepoSection?.lastChild &&
+                searchRepoSection?.children[searchRepoSection?.childElementCount - 1]
+                    .getAttribute('class') === 'user-repos-result') {
+                this.lastChildToRemove = searchRepoSection?.lastChild;
+            }
             const reposElement = document.createElement('repos');
             reposElement.dataset.user = userName;
             reposElement.dataset.update = dataString;
@@ -49,6 +56,14 @@ class ReposApplication {
         };
         this.viewElements = new Map();
         this.appRequests = new AppRequests();
+        this.lastChildToRemove = null;
+        this.observer = new MutationObserver(list => {
+            for (const listElement of list) {
+                if (listElement.addedNodes.length > 0 && list[0].target.id === 'searchRepo') {
+                    this.changeReposTag();
+                }
+            }
+        });
         this.init();
     }
     changeReposTagOnDOM(element, reposArr, updatedAfter) {
@@ -61,6 +76,7 @@ class ReposApplication {
             .map((element) => ({
             name: element.name,
             updated_at: new Date(element.updated_at).toDateString(),
+            description: element.description ? element.description : 'No description',
             git_url: element.git_url,
         }))
             .sort((a, b) => {
@@ -77,6 +93,13 @@ class ReposApplication {
         divElement.appendChild(repositoriesTable);
         element.insertBefore(divElement, element.firstChild);
         element.outerHTML = element.innerHTML;
+        if (this.lastChildToRemove) {
+            const searchRepoSection = this.viewElements.get('searchRepo');
+            if (searchRepoSection) {
+                searchRepoSection.removeChild(this.lastChildToRemove);
+                this.lastChildToRemove = null;
+            }
+        }
     }
     generateRepositoriesTable(reposArr) {
         const arrayKeys = Object.keys(reposArr[0]);
@@ -99,6 +122,9 @@ class ReposApplication {
                     break;
                 case 'updated_at':
                     key = 'Last update';
+                    break;
+                case 'description':
+                    key = 'Description';
                     break;
                 case 'git_url':
                     key = 'URL to download';

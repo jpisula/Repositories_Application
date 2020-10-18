@@ -7,6 +7,8 @@ import { AppRequests } from './appRequests.js';
 class ReposApplication {
     private viewElements: Map<string, HTMLElement | null>;
     private appRequests: AppRequests;
+    private observer : MutationObserver;
+    private lastChildToRemove : ChildNode | null;
 
     /**
      * Initialize class fields and runs init method
@@ -14,6 +16,14 @@ class ReposApplication {
     constructor() {
         this.viewElements = new Map<string, HTMLElement | null>();
         this.appRequests = new AppRequests();
+        this.lastChildToRemove = null;
+        this.observer = new MutationObserver(list => {
+            for(const listElement of list) {
+                if(listElement.addedNodes.length > 0 && (<HTMLElement>list[0].target).id === 'searchRepo') {
+                    this.changeReposTag();
+                }
+            }
+        });
         this.init();
     }
 
@@ -22,9 +32,9 @@ class ReposApplication {
      * run methods: connectDOMElements(), setupListeners() and changeReposTag()
      */
     private init = () => {
-        this.connectDOMElements();
-        this.setupListeners();
+        this.connectDOMElements();  
         this.changeReposTag();
+        this.setupListeners();
     };
 
     private connectDOMElements = () => {
@@ -35,6 +45,7 @@ class ReposApplication {
 
     private setupListeners = () => {
         this.viewElements.get('searchForRepo')?.addEventListener('click', this.onReposSearchBtnClick);
+        this.observer.observe(document.body, {attributes: true, childList: true, subtree: true});
     };
 
     private onReposSearchBtnClick = (event: Event) => {
@@ -42,6 +53,12 @@ class ReposApplication {
         const userName: string = (<HTMLInputElement>this.viewElements.get('userName')).value;
         const dataString: string = (<HTMLInputElement>this.viewElements.get('updatedBy')).value;
         const searchRepoSection: HTMLElement | null | undefined = this.viewElements.get('searchRepo');
+        console.log();
+        if(searchRepoSection?.lastChild && 
+            searchRepoSection?.children[searchRepoSection?.childElementCount - 1]
+            .getAttribute('class') === 'user-repos-result') {
+                this.lastChildToRemove = searchRepoSection?.lastChild;
+        }
         const reposElement: HTMLElement = document.createElement('repos');
         reposElement.dataset.user = userName;
         reposElement.dataset.update = dataString;
@@ -73,6 +90,7 @@ class ReposApplication {
             .map((element) => ({
                 name: element.name,
                 updated_at: new Date(element.updated_at).toDateString(),
+                description: element.description ? element.description : 'No description',
                 git_url: element.git_url,
             }))
             .sort((a, b) => {
@@ -94,6 +112,14 @@ class ReposApplication {
 
         element.insertBefore(divElement, element.firstChild);
         element.outerHTML = element.innerHTML;
+
+        if(this.lastChildToRemove) {
+            const searchRepoSection: HTMLElement | null | undefined = this.viewElements.get('searchRepo');
+            if(searchRepoSection) {
+                searchRepoSection.removeChild(this.lastChildToRemove);
+                this.lastChildToRemove = null;
+            }
+        }
     }
 
     generateRepositoriesTable(reposArr: Array<any>) {
@@ -119,6 +145,9 @@ class ReposApplication {
                     break;
                 case 'updated_at':
                     key = 'Last update';
+                    break;
+                case 'description':
+                    key = 'Description';
                     break;
                 case 'git_url':
                     key = 'URL to download';

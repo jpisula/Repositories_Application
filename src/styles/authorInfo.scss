@@ -1,0 +1,40 @@
+.author-info {
+    color: white;
+    text-align: center;
+
+    .container {
+        padding: 2% 0;
+    }
+
+    header {
+        font-size: 36px;
+        margin-top: 5%;
+        margin-bottom: 2px; 
+        letter-spacing: 2px;    
+    }
+
+    h2 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 24px;
+        font-weight: 400;
+        letter-spacing: 1px;
+    }
+    
+    .quote {
+        font-style: italic;
+        margin-top: 2%;
+    }
+
+    .icon-styles {
+        text-decoration: none;
+        color: white;
+        font-size: 36px;
+        cursor: pointer;
+        transition: .5s all;
+    }
+
+    .icon-styles:hover {
+        color: black;
+    }
+}
