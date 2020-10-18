@@ -8,7 +8,69 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="container">
+            <header class="nav-logo">
+                Repositories Application By Jakub Pisula
+            </header>
+
+            <div class="nav-links">
+                <a href="#repositories">repositories</a>
+                <a href="#authorInfo">about author</a>
+            </div>
+        </div>
+    </nav>
+
+      <!-- LANDING PAGE -->
+      <section id="landingPage" class="landing-page-section">
+        <div class="landing-page-shadow">
+            <div class="container">
+                <div class="landing-page-content">
+                    <h1>Check user repositories today!</h1>
+                    <h2>
+                        This application allows you to get info about user's github repositories which were updated after chosen date
+                    </h2>
+
+                    <a href="#repositories"><h3>Check this functionality by yourself!</h3></a> 
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REPOSITORIES SECTION -->
+    <main id="repositories" class="repositories-section">
+        <div class="container">
+            <header>Check someone's github repositories!</header>
+            <section class="example-repo-section">
+                <h2>Example of search result:</h2>
+                <repos data-user="devballteam" data-update="2019-05-01">
+            </section>
+
+            <section class="search-repo-section" id="searchRepo">
+                <header>Search for user repositories:</header>
+                <form id="searchRepoForm" class="search-repo-form">
+                    <div class="form-inputs">
+                        <div class="input-group">
+                            <label for="userName">Username:</label>
+                            <input type="text" id="userName" name="userName">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="updatedBy">Updated after:</label>
+                            <input type="date" id="updatedBy" name="updatedBy">
+                        </div>
+                    </div> 
+
+                    <button id="searchForRepo">Search</button>
+                </form>
+            </section>
+            
+        </div>
+    </main>
     
-    <script src="src/js/main.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="module" src="src/js/main.js"></script>
 </body>
 </html>

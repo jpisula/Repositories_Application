@@ -8,7 +8,7 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "lite": "lite-server",
-    "start": "concurrently \"npm run tsc:w\" \"npm run lite\" "
+    "start": "sass ./src/styles/main.scss main.css & concurrently \"npm run tsc:w\" \"npm run lite\" "
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/jpisula/Repositories_Application#readme",
   "dependencies": {
+    "axios": "^0.20.0",
     "live-server": "^1.2.1",
     "sass": "^1.27.0"
   },

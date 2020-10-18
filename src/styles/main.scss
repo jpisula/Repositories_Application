@@ -1,3 +1,4 @@
-body {
-    background-color: khaki;
-}
+@use 'base';
+@use 'navigation';
+@use 'landingPage';
+@use 'repositoriesSearch';
