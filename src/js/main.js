@@ -22,8 +22,12 @@ class ReposApplication {
             this.viewElements = mapListToDOMElements(listOfIds);
         };
         this.setupListeners = () => {
+            window.addEventListener('scroll', this.onPageScroll);
             this.viewElements.get('searchForRepo')?.addEventListener('click', this.onReposSearchBtnClick);
             this.observer.observe(document.body, { attributes: true, childList: true, subtree: true });
+        };
+        this.onPageScroll = () => {
+            this.viewElements.get('pageNavbar')?.classList.toggle("sticky", window.scrollY > 0);
         };
         this.onReposSearchBtnClick = (event) => {
             event.preventDefault();
@@ -86,7 +90,7 @@ class ReposApplication {
         divElement.setAttribute('class', 'user-repos-result');
         let h3Element = document.createElement('h3');
         h3Element.innerText = element.dataset.user
-            ? `Repositories of user \'${element.dataset.user}\' updated after ${updatedAfter}`
+            ? `Github repositories of user \'${element.dataset.user}\' updated after ${updatedAfter}`
             : `Couldn't find username`;
         let repositoriesTable = this.generateRepositoriesTable(reposArray);
         divElement.appendChild(h3Element);
@@ -101,6 +105,7 @@ class ReposApplication {
             }
         }
     }
+    ;
     generateRepositoriesTable(reposArr) {
         const arrayKeys = Object.keys(reposArr[0]);
         let table = document.createElement('table');
@@ -137,6 +142,7 @@ class ReposApplication {
         }
         return table;
     }
+    ;
 }
 const runScripts = () => {
     const reposApplication = new ReposApplication();

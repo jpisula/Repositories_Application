@@ -2,13 +2,14 @@
     background-color: #374c5f;
     color: white;
     text-align: center;
+    font-size: 1.5rem;
 
     .container {
         padding: 2% 0;
     }
 
     header {
-        font-size: 36px;
+        font-size: 3rem;
         margin-top: 5%;
         margin-bottom: 5%; 
         letter-spacing: 2px;    
@@ -16,7 +17,7 @@
 
     h2 {
         margin-bottom: 10px;
-        font-size: 24px;
+        font-size: 2rem;
         text-align: left;
         font-weight: 400;
         letter-spacing: 1px;
@@ -36,7 +37,7 @@
         }
 
         header {
-            font-size: 24px;
+            font-size: 2rem;
             font-weight: 600;
             margin-bottom: 2%;
         }
@@ -47,7 +48,7 @@
             margin: 2% auto;
             padding: 0.5% 5%;
             font-weight: 400;
-            font-size: 16px;
+            font-size: 1.3rem;
             background: none;
             border: 1px solid white;
             border-radius: 15px;

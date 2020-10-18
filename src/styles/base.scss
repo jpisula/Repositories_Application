@@ -1,16 +1,21 @@
+html {
+    scroll-behavior: smooth;
+    font-size: 12px;
+}
+
 body {
     margin:0;
     font-family: 'Montserrat', sans-serif;
-    scroll-behavior: smooth;
     background-color: #374c5f;
 }
 
 .container {
-    width: 1100px;
+    width: 70%;
     margin: 0 auto;
 }
 
 .user-repos-result {
+    font-size: 1.3rem;
     background-color: rgba(139,148,152, .3);
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 10px;
@@ -30,9 +35,9 @@ body {
     .repos-table {
         width: 100%;
         border-collapse: collapse;
-        font-size: 0.9em;
         font-family: sans-serif;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        overflow-x: scroll;
 
         thead  {
             tr {
@@ -78,5 +83,83 @@ body {
     background-image: linear-gradient(to right, rgba(59,52,43, 0), rgba(59,52,43, 1), rgba(59,52,43, 0));
 }
 
+@media 
+only screen and (max-width: 1350px) {
+    .user-repos-result {
+	/* Force table to not be like tables anymore */
+	.repos-table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td {
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+        padding-left: 50% !important;
+        text-align: right;
+	}
+	
+	td:before { 
+		position: absolute;
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+        text-align: left;
+	}
+
+    /*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "Repository Name"; }
+	td:nth-of-type(2):before { content: "Last update"; }
+	td:nth-of-type(3):before { content: "Description"; }
+	td:nth-of-type(4):before { content: "URL to download"; }
+    }
+}
 
 
+@media 
+only screen and (max-width: 750px)  { 
+    html {
+        font-size: xx-small;
+    }
+    
+    .container {
+        width: 96%;
+    }
+
+    .navbar {
+        .nav-links {
+            visibility: hidden;
+        }
+    
+        .nav-logo {
+            width: 100%;
+            text-align: center;
+        }
+    }
+}
+
+@media 
+only screen and (max-width: 1250px)  { 
+    .navbar {
+        .nav-links {
+            visibility: hidden;
+        }
+    
+        .nav-logo {
+            width: 100%;
+            text-align: center;
+        }
+    }
+}

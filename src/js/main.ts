@@ -44,8 +44,13 @@ class ReposApplication {
     };
 
     private setupListeners = () => {
+        window.addEventListener('scroll', this.onPageScroll)
         this.viewElements.get('searchForRepo')?.addEventListener('click', this.onReposSearchBtnClick);
         this.observer.observe(document.body, {attributes: true, childList: true, subtree: true});
+    };
+
+    private onPageScroll = () => {
+        this.viewElements.get('pageNavbar')?.classList.toggle("sticky", window.scrollY > 0);
     };
 
     private onReposSearchBtnClick = (event: Event) => {
@@ -102,7 +107,7 @@ class ReposApplication {
 
         let h3Element: HTMLElement = document.createElement('h3');
         h3Element.innerText = element.dataset.user
-            ? `Repositories of user \'${element.dataset.user}\' updated after ${updatedAfter}`
+            ? `Github repositories of user \'${element.dataset.user}\' updated after ${updatedAfter}`
             : `Couldn't find username`;
 
         let repositoriesTable: HTMLElement = this.generateRepositoriesTable(reposArray);
@@ -120,7 +125,7 @@ class ReposApplication {
                 this.lastChildToRemove = null;
             }
         }
-    }
+    };
 
     generateRepositoriesTable(reposArr: Array<any>) {
         const arrayKeys: Array<string> = Object.keys(reposArr[0]);
@@ -161,7 +166,7 @@ class ReposApplication {
         }
 
         return table;
-    }
+    };
 }
 
 const runScripts = () => {

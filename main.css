@@ -1,16 +1,21 @@
+html {
+  scroll-behavior: smooth;
+  font-size: 12px;
+}
+
 body {
   margin: 0;
   font-family: "Montserrat", sans-serif;
-  scroll-behavior: smooth;
   background-color: #374c5f;
 }
 
 .container {
-  width: 1100px;
+  width: 70%;
   margin: 0 auto;
 }
 
 .user-repos-result {
+  font-size: 1.3rem;
   background-color: rgba(139, 148, 152, 0.3);
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 10px;
@@ -29,9 +34,9 @@ body {
 .user-repos-result .repos-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.9em;
   font-family: sans-serif;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  overflow-x: scroll;
 }
 .user-repos-result .repos-table thead tr {
   background-color: #3b342b;
@@ -66,10 +71,86 @@ body {
   background-image: linear-gradient(to right, rgba(59, 52, 43, 0), #3b342b, rgba(59, 52, 43, 0));
 }
 
+@media only screen and (max-width: 1350px) {
+  .user-repos-result {
+    /* Force table to not be like tables anymore */
+    /* Hide table headers (but not display: none;, for accessibility) */
+    /*
+    Label the data
+    */
+  }
+  .user-repos-result .repos-table, .user-repos-result thead, .user-repos-result tbody, .user-repos-result th, .user-repos-result td, .user-repos-result tr {
+    display: block;
+  }
+  .user-repos-result thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  .user-repos-result tr {
+    border: 1px solid #ccc;
+  }
+  .user-repos-result td {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50% !important;
+    text-align: right;
+  }
+  .user-repos-result td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    text-align: left;
+  }
+  .user-repos-result td:nth-of-type(1):before {
+    content: "Repository Name";
+  }
+  .user-repos-result td:nth-of-type(2):before {
+    content: "Last update";
+  }
+  .user-repos-result td:nth-of-type(3):before {
+    content: "Description";
+  }
+  .user-repos-result td:nth-of-type(4):before {
+    content: "URL to download";
+  }
+}
+@media only screen and (max-width: 750px) {
+  html {
+    font-size: xx-small;
+  }
+
+  .container {
+    width: 96%;
+  }
+
+  .navbar .nav-links {
+    visibility: hidden;
+  }
+  .navbar .nav-logo {
+    width: 100%;
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 1250px) {
+  .navbar .nav-links {
+    visibility: hidden;
+  }
+  .navbar .nav-logo {
+    width: 100%;
+    text-align: center;
+  }
+}
 .navbar {
   position: fixed;
   width: 100%;
   background-color: rgba(43, 43, 43, 0);
+  transition: 0.5s all;
+  font-size: 1.5rem;
 }
 .navbar .container {
   display: flex;
@@ -83,7 +164,7 @@ body {
 }
 .navbar .nav-logo {
   font-weight: 600;
-  font-size: 20px;
+  font-size: 2rem;
   color: white;
 }
 .navbar .nav-links {
@@ -98,8 +179,12 @@ body {
   transform: scale(1.1);
 }
 
+.sticky {
+  background-color: #486158;
+  z-index: 100;
+}
+
 .landing-page-section {
-  /* height: calc(100vh - 70px); */
   height: 100vh;
   background-image: url("./../../assets/landing-photo.jpg");
   background-size: cover;
@@ -126,11 +211,11 @@ body {
 }
 .landing-page-content h1 {
   margin: 0;
-  font-size: 36px;
+  font-size: 3rem;
 }
 .landing-page-content h2 {
   margin: 0;
-  font-size: 24px;
+  font-size: 2rem;
   max-width: 50%;
   text-align: justify;
 }
@@ -156,19 +241,20 @@ body {
   background-color: #374c5f;
   color: white;
   text-align: center;
+  font-size: 1.5rem;
 }
 .repositories-section .container {
   padding: 2% 0;
 }
 .repositories-section header {
-  font-size: 36px;
+  font-size: 3rem;
   margin-top: 5%;
   margin-bottom: 5%;
   letter-spacing: 2px;
 }
 .repositories-section h2 {
   margin-bottom: 10px;
-  font-size: 24px;
+  font-size: 2rem;
   text-align: left;
   font-weight: 400;
   letter-spacing: 1px;
@@ -183,7 +269,7 @@ body {
   justify-content: space-evenly;
 }
 .repositories-section .search-repo-section header {
-  font-size: 24px;
+  font-size: 2rem;
   font-weight: 600;
   margin-bottom: 2%;
 }
@@ -193,7 +279,7 @@ body {
   margin: 2% auto;
   padding: 0.5% 5%;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 1.3rem;
   background: none;
   border: 1px solid white;
   border-radius: 15px;
@@ -223,12 +309,13 @@ body {
 .author-info {
   color: white;
   text-align: center;
+  font-size: 1.5rem;
 }
 .author-info .container {
   padding: 2% 0;
 }
 .author-info header {
-  font-size: 36px;
+  font-size: 3rem;
   margin-top: 5%;
   margin-bottom: 2px;
   letter-spacing: 2px;
@@ -236,7 +323,7 @@ body {
 .author-info h2 {
   margin-top: 0;
   margin-bottom: 10px;
-  font-size: 24px;
+  font-size: 2rem;
   font-weight: 400;
   letter-spacing: 1px;
 }
@@ -247,7 +334,7 @@ body {
 .author-info .icon-styles {
   text-decoration: none;
   color: white;
-  font-size: 36px;
+  font-size: 3rem;
   cursor: pointer;
   transition: 0.5s all;
 }
@@ -258,9 +345,11 @@ body {
 footer {
   background-color: rgba(0, 0, 0, 0.4);
   color: white;
+  margin-top: 2%;
   border-top-left-radius: 80px;
   border-top-right-radius: 80px;
   text-align: center;
+  font-size: 1.5rem;
 }
 footer .container {
   display: flex;
@@ -268,7 +357,7 @@ footer .container {
   height: 70px;
 }
 footer h3 {
-  font-size: 16px;
+  font-size: 1.3rem;
   letter-spacing: 2px;
   margin: 10px 0;
 }
@@ -282,7 +371,6 @@ footer a:hover {
   color: black;
 }
 footer .footer-contact {
-  font-size: 14px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;

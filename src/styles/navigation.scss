@@ -2,6 +2,8 @@
     position: fixed;
     width: 100%;
     background-color: rgba(43,43,43, 0);
+    transition: .5s all;
+    font-size: 1.5rem;
 
     .container {
         display: flex;
@@ -17,7 +19,7 @@
 
     .nav-logo {
         font-weight: 600;
-        font-size: 20px;
+        font-size: 2rem;
         color: white;
     }
     
@@ -34,4 +36,9 @@
             transform: scale(1.1);
         }
     }
+}
+
+.sticky {
+    background-color: rgba(72,97,88);
+    z-index: 100;
 }

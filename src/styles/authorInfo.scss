@@ -1,13 +1,14 @@
 .author-info {
     color: white;
     text-align: center;
+    font-size: 1.5rem;
 
     .container {
         padding: 2% 0;
     }
 
     header {
-        font-size: 36px;
+        font-size: 3rem;
         margin-top: 5%;
         margin-bottom: 2px; 
         letter-spacing: 2px;    
@@ -16,7 +17,7 @@
     h2 {
         margin-top: 0;
         margin-bottom: 10px;
-        font-size: 24px;
+        font-size: 2rem;
         font-weight: 400;
         letter-spacing: 1px;
     }
@@ -29,7 +30,7 @@
     .icon-styles {
         text-decoration: none;
         color: white;
-        font-size: 36px;
+        font-size: 3rem;
         cursor: pointer;
         transition: .5s all;
     }
