@@ -34,17 +34,34 @@ class ReposApplication {
             const userName = this.viewElements.get('userName').value;
             const dataString = this.viewElements.get('updatedBy').value;
             const searchRepoSection = this.viewElements.get('searchRepo');
-            console.log();
-            if (searchRepoSection?.lastChild &&
-                searchRepoSection?.children[searchRepoSection?.childElementCount - 1]
-                    .getAttribute('class') === 'user-repos-result') {
-                this.lastChildToRemove = searchRepoSection?.lastChild;
+            if (userName !== '' && dataString !== '') {
+                this.viewElements.get('userName').classList.remove('wrong-input');
+                this.viewElements.get('updatedBy').classList.remove('wrong-input');
+                if (searchRepoSection?.lastChild &&
+                    searchRepoSection?.children[searchRepoSection?.childElementCount - 1]
+                        .getAttribute('class') === 'user-repos-result') {
+                    this.lastChildToRemove = searchRepoSection?.lastChild;
+                }
+                const reposElement = document.createElement('repos');
+                reposElement.dataset.user = userName;
+                reposElement.dataset.update = dataString;
+                if (searchRepoSection) {
+                    searchRepoSection.appendChild(reposElement);
+                }
             }
-            const reposElement = document.createElement('repos');
-            reposElement.dataset.user = userName;
-            reposElement.dataset.update = dataString;
-            if (searchRepoSection) {
-                searchRepoSection.appendChild(reposElement);
+            else {
+                if (userName === '') {
+                    this.viewElements.get('userName').classList.add('wrong-input');
+                }
+                else {
+                    this.viewElements.get('userName').classList.remove('wrong-input');
+                }
+                if (dataString === '') {
+                    this.viewElements.get('updatedBy').classList.add('wrong-input');
+                }
+                else {
+                    this.viewElements.get('updatedBy').classList.remove('wrong-input');
+                }
             }
         };
         this.changeReposTag = () => {
@@ -63,7 +80,7 @@ class ReposApplication {
         this.lastChildToRemove = null;
         this.observer = new MutationObserver(list => {
             for (const listElement of list) {
-                if (listElement.addedNodes.length > 0 && list[0].target.id === 'searchRepo') {
+                if (listElement.addedNodes.length > 0 && listElement.target.id === 'searchRepo') {
                     this.changeReposTag();
                 }
             }

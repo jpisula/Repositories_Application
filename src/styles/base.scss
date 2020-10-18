@@ -83,6 +83,11 @@ body {
     background-image: linear-gradient(to right, rgba(59,52,43, 0), rgba(59,52,43, 1), rgba(59,52,43, 0));
 }
 
+.wrong-input {
+    border: 1px solid red !important;
+    background-color: indianred !important;
+}
+
 @media 
 only screen and (max-width: 1350px) {
     .user-repos-result {

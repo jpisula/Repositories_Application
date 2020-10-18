@@ -71,6 +71,11 @@ body {
   background-image: linear-gradient(to right, rgba(59, 52, 43, 0), #3b342b, rgba(59, 52, 43, 0));
 }
 
+.wrong-input {
+  border: 1px solid red !important;
+  background-color: indianred !important;
+}
+
 @media only screen and (max-width: 1350px) {
   .user-repos-result {
     /* Force table to not be like tables anymore */
@@ -91,7 +96,6 @@ body {
     border: 1px solid #ccc;
   }
   .user-repos-result td {
-    /* Behave  like a "row" */
     border: none;
     border-bottom: 1px solid #eee;
     position: relative;

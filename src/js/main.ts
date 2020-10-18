@@ -19,7 +19,7 @@ class ReposApplication {
         this.lastChildToRemove = null;
         this.observer = new MutationObserver(list => {
             for(const listElement of list) {
-                if(listElement.addedNodes.length > 0 && (<HTMLElement>list[0].target).id === 'searchRepo') {
+                if(listElement.addedNodes.length > 0 && (<HTMLElement>listElement.target).id === 'searchRepo') {
                     this.changeReposTag();
                 }
             }
@@ -58,18 +58,34 @@ class ReposApplication {
         const userName: string = (<HTMLInputElement>this.viewElements.get('userName')).value;
         const dataString: string = (<HTMLInputElement>this.viewElements.get('updatedBy')).value;
         const searchRepoSection: HTMLElement | null | undefined = this.viewElements.get('searchRepo');
-        console.log();
-        if(searchRepoSection?.lastChild && 
-            searchRepoSection?.children[searchRepoSection?.childElementCount - 1]
-            .getAttribute('class') === 'user-repos-result') {
-                this.lastChildToRemove = searchRepoSection?.lastChild;
+        if(userName !== '' && dataString !== '') {
+            (<HTMLInputElement>this.viewElements.get('userName')).classList.remove('wrong-input');
+            (<HTMLInputElement>this.viewElements.get('updatedBy')).classList.remove('wrong-input');
+
+            if(searchRepoSection?.lastChild && 
+                searchRepoSection?.children[searchRepoSection?.childElementCount - 1]
+                .getAttribute('class') === 'user-repos-result') {
+                    this.lastChildToRemove = searchRepoSection?.lastChild;
+            }
+            const reposElement: HTMLElement = document.createElement('repos');
+            reposElement.dataset.user = userName;
+            reposElement.dataset.update = dataString;
+            if (searchRepoSection) {
+                searchRepoSection.appendChild(reposElement);
+            }
+        } else {
+            if(userName === '') {
+                (<HTMLInputElement>this.viewElements.get('userName')).classList.add('wrong-input');
+            } else {
+                (<HTMLInputElement>this.viewElements.get('userName')).classList.remove('wrong-input');
+            }
+            if(dataString === '') {
+                (<HTMLInputElement>this.viewElements.get('updatedBy')).classList.add('wrong-input');
+            } else {
+                (<HTMLInputElement>this.viewElements.get('updatedBy')).classList.remove('wrong-input');
+            }
         }
-        const reposElement: HTMLElement = document.createElement('repos');
-        reposElement.dataset.user = userName;
-        reposElement.dataset.update = dataString;
-        if (searchRepoSection) {
-            searchRepoSection.appendChild(reposElement);
-        }
+       
     };
 
     private changeReposTag = () => {
