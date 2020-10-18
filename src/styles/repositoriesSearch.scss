@@ -10,12 +10,16 @@
     header {
         font-size: 36px;
         margin-top: 5%;
-        margin-bottom: 5%;
+        margin-bottom: 5%; 
+        letter-spacing: 2px;    
     }
 
     h2 {
         margin-bottom: 10px;
         font-size: 24px;
+        text-align: left;
+        font-weight: 400;
+        letter-spacing: 1px;
     }
 
     .search-repo-section {
@@ -79,5 +83,4 @@
             margin-right: 3%;
         }
     }
-
 }

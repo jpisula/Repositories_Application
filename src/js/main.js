@@ -18,8 +18,7 @@ class ReposApplication {
             this.changeReposTag();
         };
         this.connectDOMElements = () => {
-            const listOfIds = [...document.querySelectorAll('[id]')]
-                .map(elem => elem.id);
+            const listOfIds = [...document.querySelectorAll('[id]')].map((elem) => elem.id);
             this.viewElements = mapListToDOMElements(listOfIds);
         };
         this.setupListeners = () => {
@@ -42,8 +41,9 @@ class ReposApplication {
             for (const element of prosElements) {
                 if (element instanceof HTMLElement && element.dataset.user && element.dataset.update) {
                     const updatedAfter = element.dataset.update;
-                    this.appRequests.getUserRepositories(element.dataset.user)
-                        .then(response => this.changeReposTagOnDOM(element, response, updatedAfter));
+                    this.appRequests
+                        .getUserRepositories(element.dataset.user)
+                        .then((response) => this.changeReposTagOnDOM(element, response, updatedAfter));
                 }
             }
         };
@@ -52,19 +52,26 @@ class ReposApplication {
         this.init();
     }
     changeReposTagOnDOM(element, reposArr, updatedAfter) {
-        const reposArray = reposArr.filter(element => {
+        const reposArray = reposArr
+            .filter((element) => {
             const elementDate = new Date(element.updated_at);
             const afterDate = new Date(updatedAfter);
             return elementDate > afterDate;
-        }).map(element => ({
+        })
+            .map((element) => ({
             name: element.name,
-            updated_at: (new Date(element.updated_at)).toDateString(),
-            git_url: element.git_url
-        }));
+            updated_at: new Date(element.updated_at).toDateString(),
+            git_url: element.git_url,
+        }))
+            .sort((a, b) => {
+            return +new Date(b.updated_at) - +new Date(a.updated_at);
+        });
         let divElement = document.createElement('div');
         divElement.setAttribute('class', 'user-repos-result');
         let h3Element = document.createElement('h3');
-        h3Element.innerText = element.dataset.user ? `Repository of user: ${element.dataset.user}` : `Couldn't find username`;
+        h3Element.innerText = element.dataset.user
+            ? `Repositories of user \'${element.dataset.user}\' updated after ${updatedAfter}`
+            : `Couldn't find username`;
         let repositoriesTable = this.generateRepositoriesTable(reposArray);
         divElement.appendChild(h3Element);
         divElement.appendChild(repositoriesTable);
@@ -97,8 +104,7 @@ class ReposApplication {
                     key = 'URL to download';
                     break;
             }
-            ;
-            let th = document.createElement("th");
+            let th = document.createElement('th');
             let text = document.createTextNode(key);
             th.appendChild(text);
             row.appendChild(th);
