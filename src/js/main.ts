@@ -72,6 +72,8 @@ class ReposApplication {
             reposElement.dataset.update = dataString;
             if (searchRepoSection) {
                 searchRepoSection.appendChild(reposElement);
+                (<HTMLInputElement>this.viewElements.get('userName')).value = '';
+                (<HTMLInputElement>this.viewElements.get('updatedBy')).value = '';
             }
         } else {
             if(userName === '') {
@@ -102,6 +104,20 @@ class ReposApplication {
     };
 
     private changeReposTagOnDOM(element: HTMLElement, reposArr: Array<any>, updatedAfter: string) {
+        if(reposArr.length == 0) {  
+            element.outerHTML = element.innerHTML;
+
+            if(this.lastChildToRemove) {
+                const searchRepoSection: HTMLElement | null | undefined = this.viewElements.get('searchRepo');
+                if(searchRepoSection) {
+                    searchRepoSection.removeChild(this.lastChildToRemove);
+                    this.lastChildToRemove = null;
+                }
+            }
+
+            alert('Unfortunatelly, there is no repositories from this user :(');
+            return;
+        }
         const reposArray: Array<any> = reposArr
             .filter((element) => {
                 const elementDate: Date = new Date(element.updated_at);

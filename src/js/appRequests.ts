@@ -4,6 +4,10 @@ export class AppRequests {
     getUserRepositories = (userName: string) => {
         return axios
             .get(`https://api.github.com/users/${userName}/repos`)
-            .then((response: { data: any }) => response.data);
+            .then((response: { data: any }) => response.data)
+            .catch((error: any) => {
+                console.log(error);
+                return [];
+            });
     };
 }
