@@ -31,5 +31,4 @@ Changed HTML structure:
   <table class="repos-table"> 
     Table with 4 columns: repository name, last updates, description and git URL to download repository
   </table>
-</div>```
-  
+</div>
