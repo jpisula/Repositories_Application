@@ -2,7 +2,7 @@ import { mapListToDOMElements } from './DOMActions.js';
 import { AppRequests } from './appRequests.js';
 
 /**
- * Main class of application
+ * Main class of application.
  */
 class ReposApplication {
     private viewElements: Map<string, HTMLElement | null>;
@@ -11,7 +11,7 @@ class ReposApplication {
     private lastChildToRemove : ChildNode | null;
 
     /**
-     * Initialize class fields and runs init method
+     * Initialize class fields and runs init method.
      */
     constructor() {
         this.viewElements = new Map<string, HTMLElement | null>();
@@ -29,30 +29,44 @@ class ReposApplication {
 
     /**
      * Runs methods responsible for proper working of the site;
-     * run methods: connectDOMElements(), setupListeners() and changeReposTag()
+     * run methods: connectDOMElements(), setupListeners(), changeReposTag() and onPageScroll().
      */
     private init = () => {
         this.connectDOMElements();  
-        this.changeReposTag();
         this.setupListeners();
+        this.changeReposTag();
+        this.onPageScroll();
     };
 
+    /**
+     * Initializes this.viewElements with list of DOM elements, uses external function mapListToDOMElements().
+     */
     private connectDOMElements = () => {
         const listOfIds: Array<string> = [...document.querySelectorAll('[id]')].map((elem) => elem.id);
-
         this.viewElements = mapListToDOMElements(listOfIds);
     };
 
+    /**
+     * Setting up all necessary listeners.
+     */
     private setupListeners = () => {
         window.addEventListener('scroll', this.onPageScroll)
         this.viewElements.get('searchForRepo')?.addEventListener('click', this.onReposSearchBtnClick);
         this.observer.observe(document.body, {attributes: true, childList: true, subtree: true});
     };
 
+    /**
+     * Toggles class of navbar when page is being scrolled.
+     */
     private onPageScroll = () => {
         this.viewElements.get('pageNavbar')?.classList.toggle("sticky", window.scrollY > 0);
     };
 
+    /**
+     * Handles search button click event. 
+     * Checking form inputs and according to them appends repos element to the site.
+     * @param {Event} event 
+     */
     private onReposSearchBtnClick = (event: Event) => {
         event.preventDefault();
         const userName: string = (<HTMLInputElement>this.viewElements.get('userName')).value;
@@ -87,9 +101,12 @@ class ReposApplication {
                 (<HTMLInputElement>this.viewElements.get('updatedBy')).classList.remove('wrong-input');
             }
         }
-       
     };
 
+    /**
+     * Method responsible for get all repos tags elements, 
+     * get data about users repositories and send received data to changeReposTagOnDOM() method.
+     */
     private changeReposTag = () => {
         const prosElements: Array<any> = [...document.querySelectorAll('repos')].reverse();
 
@@ -103,7 +120,13 @@ class ReposApplication {
         }
     };
 
-    private changeReposTagOnDOM(element: HTMLElement, reposArr: Array<any>, updatedAfter: string) {
+    /**
+     * Method that creates new div element with data received from backend.
+     * @param {HTMLElement} element 
+     * @param {Array<any>} reposArr 
+     * @param {string} updatedAfter 
+     */
+    private changeReposTagOnDOM = (element: HTMLElement, reposArr: Array<any>, updatedAfter: string)  => {
         if(reposArr.length == 0) {  
             element.outerHTML = element.innerHTML;
 
@@ -118,6 +141,7 @@ class ReposApplication {
             alert('Unfortunatelly, there is no repositories from this user :(');
             return;
         }
+
         const reposArray: Array<any> = reposArr
             .filter((element) => {
                 const elementDate: Date = new Date(element.updated_at);
@@ -159,7 +183,12 @@ class ReposApplication {
         }
     };
 
-    generateRepositoriesTable(reposArr: Array<any>) {
+    /**
+     * Generates table with repositories.
+     * @param {Array<any>} reposArr 
+     * @returns table element
+     */
+    generateRepositoriesTable = (reposArr: Array<any>) => {
         const arrayKeys: Array<string> = Object.keys(reposArr[0]);
         let table: HTMLTableElement = document.createElement('table');
         table.setAttribute('class', 'repos-table');
@@ -201,6 +230,9 @@ class ReposApplication {
     };
 }
 
+/**
+ * Global function that creates main class off the application
+ */
 const runScripts = () => {
     const reposApplication: ReposApplication = new ReposApplication();
 };

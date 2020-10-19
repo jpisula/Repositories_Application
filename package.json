@@ -4,6 +4,7 @@
   "description": "Application which gives repositories of chosen github user",
   "main": "index.js",
   "scripts": {
+    "jsdoc" : "jsdoc -c jsdoc.json",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "test": "we are live!",
     "tsc": "tsc",

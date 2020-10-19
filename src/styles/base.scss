@@ -131,6 +131,19 @@ only screen and (max-width: 1350px) {
     }
 }
 
+@media 
+only screen and (max-width: 1250px)  { 
+    .navbar {
+        .nav-links {
+            visibility: hidden;
+        }
+    
+        .nav-logo {
+            width: 100%;
+            text-align: center;
+        }
+    }
+}
 
 @media 
 only screen and (max-width: 750px)  { 
@@ -152,18 +165,11 @@ only screen and (max-width: 750px)  {
             text-align: center;
         }
     }
-}
 
-@media 
-only screen and (max-width: 1250px)  { 
-    .navbar {
-        .nav-links {
-            visibility: hidden;
-        }
-    
-        .nav-logo {
-            width: 100%;
-            text-align: center;
+    .landing-page-content {
+        h2 {
+            text-align: left !important;
         }
     }
 }
+

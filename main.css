@@ -122,6 +122,15 @@ body {
     content: "URL to download";
   }
 }
+@media only screen and (max-width: 1250px) {
+  .navbar .nav-links {
+    visibility: hidden;
+  }
+  .navbar .nav-logo {
+    width: 100%;
+    text-align: center;
+  }
+}
 @media only screen and (max-width: 750px) {
   html {
     font-size: xx-small;
@@ -138,14 +147,9 @@ body {
     width: 100%;
     text-align: center;
   }
-}
-@media only screen and (max-width: 1250px) {
-  .navbar .nav-links {
-    visibility: hidden;
-  }
-  .navbar .nav-logo {
-    width: 100%;
-    text-align: center;
+
+  .landing-page-content h2 {
+    text-align: left !important;
   }
 }
 .navbar {
@@ -226,6 +230,7 @@ body {
   margin: 0;
 }
 .landing-page-content a {
+  font-size: 1.5rem;
   text-decoration: none;
   color: white;
   font-weight: 600;
