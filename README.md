@@ -19,14 +19,14 @@ We can see that in index.html file originally in lines 55 and 95 there are 'repo
   are dynamically changed to other HTML structure with data received from github API.
   
 Changed HTML structure:
-<div class="user-repos-result">
+```<div class="user-repos-result">
   <h3>
     Github repositories of user 'username' updated after date
   </h3>
   <table class="repos-table"> 
     Table with 4 columns: repository name, last updates, description and git URL to download repository
   </table>
-</div>
+</div>```
   
 If you want to see how that site works without installing or even cloning repository, visit:
 http://repositories.jakub-pisula.pl/
